@@ -1,9 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRef } from 'react';
 
 const Manager = () => {
     const ref = useRef()
     const [form, setform] = useState({ site: "", username: "", password: "" });
+    const [passwordArray, setPasswordwordArray] = useState([])
+
+    useEffect(() => {
+        let passwords = localStorage.getItem("passwords");
+
+        if (passwords) {
+            setPasswordwordArray(JSON.parse(passwords))
+        }
+    }, [])
 
     const showPassword = () => {
         alert("show the passoword");
@@ -14,16 +23,20 @@ const Manager = () => {
             ref.current.src = "icons/eyecrossed.png"
         }
     }
+
     const savePassword = () => {
-        console.log(form)
+        setPasswordwordArray([...passwordArray, form])
+        localStorage.setItem("password", JSON.stringify([...passwordArray, form]))
+        console.log([...passwordArray, form])
     }
+
     const handleChange = (e) => {
-        setform({...form, [e.target.name]: e.target.value})
+        setform({ ...form, [e.target.name]: e.target.value })
     }
 
     return (
         <>
-            <div class="absolute inset-0 -z-10 h-full w-full bg-green-100 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div class="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-green-400 opacity-30 blur-[100px]">
+            <div class="fixed inset-0 -z-10 h-full w-full bg-green-100 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div class="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-green-400 opacity-30 blur-[100px]">
             </div></div>
 
             <div className="mycontainer">
@@ -57,7 +70,38 @@ const Manager = () => {
                         </lord-icon>
                         Add Passowrd</button>
                 </div>
-
+                <div className="passwords">
+                    <h2 className='font-bold text-2xl py-4 '>Your Passwords</h2>
+                    {passwordArray.length === 0 && <div> No passwords to show</div>}
+                    {passwordArray.length != 0 &&
+                        <table class="table-auto w-full overflow-hidden rounded-xl">
+                            <thead className='bg-green-700 text-white'>
+                                <tr>
+                                    <th className='py-2'>Song</th>
+                                    <th className='py-2'>Artist</th>
+                                    <th className='py-2'>Year</th>
+                                </tr>
+                            </thead>
+                            <tbody className='bg-green-200'>
+                                <tr>
+                                    <td className='text-center w-32 py-1 border border-white'>The Sliding Mr. Bones (Next Stop, Pottersville)</td >
+                                    <td className='text-center w-32 py-1 border border-white'>Malcolm Lockyer</td >
+                                    <td className='text-center w-32 py-1 border border-white'>1961</td >
+                                </tr>
+                                <tr>
+                                    <td className='text-center w-32 py-1 border border-white'>Witchy Woman</td >
+                                    <td className='text-center w-32 py-1 border border-white'>The Eagles</td >
+                                    <td className='text-center w-32 py-1 border border-white'>1972</td >
+                                </tr>
+                                <tr>
+                                    <td className='text-center w-32 py-1 border border-white'>Shining Star</td >
+                                    <td className='text-center w-32 py-1 border border-white'>Earth, Wind, and Fire</td >
+                                    <td className='text-center w-32 py-1 border border-white'>1975</td >
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+                </div>
             </div>
         </>
 
