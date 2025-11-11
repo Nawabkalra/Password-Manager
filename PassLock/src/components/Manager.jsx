@@ -77,27 +77,20 @@ const Manager = () => {
                         <table class="table-auto w-full overflow-hidden rounded-xl">
                             <thead className='bg-green-700 text-white'>
                                 <tr>
-                                    <th className='py-2'>Song</th>
-                                    <th className='py-2'>Artist</th>
-                                    <th className='py-2'>Year</th>
+                                    <th className='py-2'>Site</th>
+                                    <th className='py-2'>Username</th>
+                                    <th className='py-2'>Password</th>
                                 </tr>
                             </thead>
                             <tbody className='bg-green-200'>
-                                <tr>
-                                    <td className='text-center w-32 py-1 border border-white'>The Sliding Mr. Bones (Next Stop, Pottersville)</td >
-                                    <td className='text-center w-32 py-1 border border-white'>Malcolm Lockyer</td >
-                                    <td className='text-center w-32 py-1 border border-white'>1961</td >
-                                </tr>
-                                <tr>
-                                    <td className='text-center w-32 py-1 border border-white'>Witchy Woman</td >
-                                    <td className='text-center w-32 py-1 border border-white'>The Eagles</td >
-                                    <td className='text-center w-32 py-1 border border-white'>1972</td >
-                                </tr>
-                                <tr>
-                                    <td className='text-center w-32 py-1 border border-white'>Shining Star</td >
-                                    <td className='text-center w-32 py-1 border border-white'>Earth, Wind, and Fire</td >
-                                    <td className='text-center w-32 py-1 border border-white'>1975</td >
-                                </tr>
+                                {passwordArray.map((item, index) => {
+                                    return <tr key = {index}>
+                                        <td className='text-center w-32 py-1 border border-white'><a href={item.site} target='_blank'>{item.site}</a></td >
+                                        <td className='text-center w-32 py-1 border border-white'>{item.username}</td >
+                                        <td className='text-center w-32 py-1 border border-white'>{item.password}</td >
+                                    </tr>
+                                })}
+
                             </tbody>
                         </table>
                     }
